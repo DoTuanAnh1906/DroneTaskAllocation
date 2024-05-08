@@ -10,4 +10,6 @@ W_MTG       = 1                 # Weight for move to goal
 W_AC        = 1                 # Weight for avoid collision
 W_RW        = 1                 # Weight for random walk
 
+N           = 5                 # Number of robots
+NUM_STEP    = 500               # Limit number of steps
 

@@ -4,6 +4,16 @@ from numpy.linalg import norm
 
 class Robot:
     def __init__(self, index: int, init_pos: np.array, init_goal: np.array):
+        """
+        Initialize the robot with its index, initial position, and goal position.
+        ---
+        Parameters:
+            index: int - index of the robot
+            init_pos: np.array - initial position of the robot
+            init_goal: np.array - goal position of the robot
+        Returns:
+            None
+        """
         self.int_index = index              # index of the robot
         self.np_curPos = init_pos           # current position of the robot
         self.np_goal = init_goal            # goal position of the robot
