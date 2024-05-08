@@ -1,5 +1,5 @@
 from const import const
 from controller.robot import *
-from output import export_img as exp
+from controller import export as exp
 
 # create a list of robots
