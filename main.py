@@ -1,15 +1,21 @@
 from const import const
 from controller.robot import *
-from controller import export as exp
+from views import views
 
 # create a list of robots
 lst_robots: list['Robot'] = []
 
-for i in range(const.N):
-    init_pos = np.random.rand(2) * const.CR
-    init_goal = np.random.rand(2) * const.CR - const.CR
-    robot = Robot(i, init_pos, init_goal)
-    lst_robots.append(robot)
+lst_goals_pos = []
+lst_start_pos = []
+
+robot1 = Robot(0, np.array([0, 0]), np.array([10, 10]))
+lst_robots.append(robot1)
+robot2 = Robot(1, np.array([10, 10]), np.array([0, 0]))
+lst_robots.append(robot2)
+robot3 = Robot(2, np.array([10, 0]), np.array([0, 10]))
+lst_robots.append(robot3)
+robot4 = Robot(3, np.array([0, 10]), np.array([10, 0]))
+lst_robots.append(robot4)
 
 # set the initial iteration = 1
 it = 1
@@ -43,3 +49,7 @@ while it < const.NUM_STEP:
 print(it)
 
 # export the robots position to image
+
+# views.plot_single_robot(robot1)
+views.plot_multiple_robots(lst_robots)
+# views.plot_step_robots(lst_robots)

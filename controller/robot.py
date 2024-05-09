@@ -6,28 +6,34 @@ class Robot:
     def __init__(self, index: int, init_pos: np.array, init_goal: np.array):
         """
         Initialize the robot with its index, initial position, and goal position.
-        ---
+
         Parameters:
+        -----------
             index: int - index of the robot
             init_pos: np.array - initial position of the robot
             init_goal: np.array - goal position of the robot
+
         Returns:
+        --------
             None
         """
-        self.int_index = index              # index of the robot
-        self.np_curPos = init_pos           # current position of the robot
-        self.np_goal = init_goal            # goal position of the robot
-        self.lst_hisPos = [self.np_curPos]  # history of the robot's position
+        self.int_index: int = index             # index of the robot
+        self.np_curPos: np.array = init_pos     # current position of the robot
+        self.np_goal: np.array = init_goal      # goal position of the robot
+        self.lst_hisPos: list['np.array'] = [self.np_curPos]  # history of the robot's position
     
     
     def update_pos(self, np_control: np.array, dt: float):
         """
         Update the position of the robot based on the control signal and the time step.
-        ---
+    
         Parameters:
+        -----------
             np_control: np.array - control signal
             dt: float - time step
+            
         Returns:
+        --------
             None
         """
         self.np_curPos = self.np_curPos + np_control*dt
@@ -36,10 +42,13 @@ class Robot:
     def calc_control_signal(self, lst_robots):
         """
         Calculate the control signal for the robot. 
-        ---
+
         Parameters:
+        -----------
             lst_robots: list - list of robots
+
         Returns:
+        --------
             np_control: np.array - control signal
         """
         # calculate the control signal for move to goal
@@ -61,10 +70,13 @@ class Robot:
     def move_to_goal(self, np_goalPos: np.array):
         """
         Create control signal to move the robot to the goal position.
-        ---
+
         Parameters:
+        -----------
             goal: np.array - goal position
+
         Returns:
+        --------
             np_mtg: np.array - control signal
         """
         # calculate the relative position and distance between the current robot and the goal position
@@ -82,10 +94,13 @@ class Robot:
     def avoid_collision(self, lst_robots: list['Robot']):
         """
         Create control signal to avoid collision with other robots.
-        ---
+
         Parameters:
+        -----------
             lst_robots: list - list of robots
+
         Returns:
+        --------
             np_ac: np.array - control signal
         """
         # calculate the distance between the current robot and the goal position
@@ -96,7 +111,7 @@ class Robot:
             return const.NP_ZERO
         
         # initialize the control signal
-        np_ac = const.NP_ZERO   
+        np_ac = 0   
 
         # iterate through the list of robots
         for robot in lst_robots:
@@ -123,10 +138,13 @@ class Robot:
     def random_walk(self):
         """
         Create control signal for random walk.
-        ---
+
         Parameters:
+        -----------
             None
+
         Returns:
+        --------
             np_rw: np.array - control signal
         """
         # calculate the distance between the current robot and the goal position
@@ -144,11 +162,14 @@ class Robot:
     def calc_norm_dis(pos1: np.array, pos2: np.array):
         """
         Calculate the distance between two points.
-        ---
+
         Parameters:
+        -----------
             pos1: np.array - position 1
             pos2: np.array - position 2
+
         Returns:
+        --------
             distance: float - distance between the two points
         """
         return norm(pos2 - pos1)
@@ -157,11 +178,14 @@ class Robot:
     def calc_relative_pos(pos1: np.array, pos2: np.array):
         """
         Calculate the relative position between two points.
-        ---
+
         Parameters:
+        -----------
             pos1: np.array - position 1
             pos2: np.array - position 2
+
         Returns:
+        --------
             relative_pos: np.array - relative position between the two points
         """
         relative_pos = pos2 - pos1
