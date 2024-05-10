@@ -2,6 +2,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 import os
 from controller.robot import *
+from const import const
 
 def plot_single_robot(robot: Robot):
     data = robot.lst_hisPos
@@ -19,8 +20,8 @@ def plot_single_robot(robot: Robot):
     plt.scatter(goalPos[0], goalPos[1], label='Goal Position', marker='*', s=100, color='red', zorder=length+1)
     plt.xlabel('X')
     plt.ylabel('Y')
-    plt.xlim(startPos[0]-1, goalPos[0]+1)
-    plt.ylim(startPos[1]-1, goalPos[1]+1)
+    plt.xlim(-1, const.OFFSET*2 + 1)
+    plt.ylim(-1, const.OFFSET*2 + 1)
     plt.title('Robot Path')
     plt.grid(True)
     plt.legend()
@@ -45,8 +46,8 @@ def plot_multiple_robots(robots: list['Robot']):
         plt.scatter(goalPos[0], goalPos[1], marker='*', s=100, zorder=length+1)
         plt.xlabel('X')
         plt.ylabel('Y')
-        plt.xlim(-1, 11)
-        plt.ylim(-1, 11)
+        plt.xlim(-1, const.OFFSET*2 + 1)
+        plt.ylim(-1, const.OFFSET*2 + 1)
         plt.title('Robot Path')
         plt.grid(True)
     plt.savefig(currentPath + '/output/result.png')
@@ -72,8 +73,8 @@ def plot_step_robots(robots: list['Robot']):
             plt.scatter(goalPos[0], goalPos[1], marker='*', s=100, zorder=length+1)
             plt.xlabel('X')
             plt.ylabel('Y')
-            plt.xlim(-1, 11)
-            plt.ylim(-1, 11)
+            plt.xlim(-1, const.OFFSET*2 + 1)
+            plt.ylim(-1, const.OFFSET*2 + 1)
             plt.title('Robot Path')
             plt.grid(True)
         plt.savefig(currentPath + f'/output/step/result{i}.png')

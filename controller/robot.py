@@ -111,8 +111,8 @@ class Robot:
             return const.NP_ZERO
         
         # initialize the control signal
-        np_ac = 0   
-
+        np_ac = np.zeros(2)
+        
         # iterate through the list of robots
         for robot in lst_robots:
 

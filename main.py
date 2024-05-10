@@ -1,21 +1,31 @@
 from const import const
 from controller.robot import *
 from views import views
+from numpy.random import rand
+from scipy.optimize import linear_sum_assignment
 
 # create a list of robots
 lst_robots: list['Robot'] = []
 
-lst_goals_pos = []
-lst_start_pos = []
+starts_pos  = rand(const.N, 2) * const.OFFSET
+_goals_pos  = rand(const.N, 2) * const.OFFSET + const.OFFSET
 
-robot1 = Robot(0, np.array([0, 0]), np.array([10, 10]))
-lst_robots.append(robot1)
-robot2 = Robot(1, np.array([10, 10]), np.array([0, 0]))
-lst_robots.append(robot2)
-robot3 = Robot(2, np.array([10, 0]), np.array([0, 10]))
-lst_robots.append(robot3)
-robot4 = Robot(3, np.array([0, 10]), np.array([10, 0]))
-lst_robots.append(robot4)
+# hungarian algorithm to assign the goal to each robot with minimum distance
+dx = _goals_pos[:, 0] - starts_pos[:, 0, None]
+dy = _goals_pos[:, 1] - starts_pos[:, 1, None]
+
+# calculate the cost matrix
+cost_matrix = np.hypot(dx, dy)
+
+# apply the hungarian algorithm
+lst_starts_idx, lst_goals_idx = linear_sum_assignment(cost_matrix)
+
+# create the robots with the minimum assigned goals
+for i in range(const.N):
+    start_pos = starts_pos[i, :]
+    goal_pos = _goals_pos[lst_goals_idx[i], :]
+    robot = Robot(i, start_pos, goal_pos)
+    lst_robots.append(robot)
 
 # set the initial iteration = 1
 it = 1
@@ -51,5 +61,5 @@ print(it)
 # export the robots position to image
 
 # views.plot_single_robot(robot1)
-views.plot_multiple_robots(lst_robots)
-# views.plot_step_robots(lst_robots)
+# views.plot_multiple_robots(lst_robots)
+views.plot_step_robots(lst_robots)
